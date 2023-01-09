@@ -14,21 +14,22 @@ public class Caja {
 
     private int identificador;
     private Cinta cinta;
-    
+
     public Caja(int identificador) {
         this.identificador = identificador;
-    }
-    
-    public void generarTicket(){
-        
+        this.cinta = cinta;
     }
 
+    public Ticket generarTicket(Cinta c){
+        Ticket t = new Ticket();
+        return t;
+    }
     public int getIdentificador() {
         return identificador;
     }
 
-    public void setIdentificador(int identificador) {
-        this.identificador = identificador;
+    public Cinta getCinta() {
+        return cinta;
     }
- 
+
 }
