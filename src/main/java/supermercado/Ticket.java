@@ -14,24 +14,16 @@ import java.util.ArrayList;
  */
 public class Ticket {
 
-    private LocalTime fecha;
+    private LocalTime hora;
     private LocalDate fechaInicio;
     private ArrayList<Productos> listaProductos;
 
-    public Ticket() {
-        this.fecha = fecha;
+    public Ticket(ArrayList<Productos> listaProductos) {
+        this.hora = hora;
         this.fechaInicio = fechaInicio;
         this.listaProductos = listaProductos;
     }
 
-    public Ticket(LocalTime fecha) {
-        this.fecha = fecha.minusHours(0);
-    }
-
-    public Ticket(LocalDate fechaInicio) {
-        this.fechaInicio = fechaInicio.now();
-    }
-   
     public ArrayList<Productos> getListaProductos() {
         return listaProductos;
     }
@@ -41,11 +33,11 @@ public class Ticket {
     }
 
     public LocalTime getFecha() {
-        return fecha;
+        return hora;
     }
 
     public void setFecha(LocalTime fecha) {
-        this.fecha = fecha;
+        this.hora = fecha;
     }
 
     public LocalDate getFechaInicio() {
@@ -56,4 +48,18 @@ public class Ticket {
         this.fechaInicio = fechaInicio;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Ticket{");
+        sb.append("fecha=").append(hora);
+        sb.append(", fechaInicio=").append(fechaInicio);
+        sb.append(", listaProductos=").append(listaProductos);
+        sb.append('}');
+        return sb.toString();
+    }
+
+    
+    
+    
 }

@@ -12,16 +12,15 @@ import java.util.ArrayList;
  */
 public class Caja {
 
-    private int identificador;
+    private final int identificador;
     private Cinta cinta;
 
     public Caja(int identificador) {
         this.identificador = identificador;
-        this.cinta = cinta;
     }
 
-    public Ticket generarTicket(Cinta c){
-        Ticket t = new Ticket();
+    public Ticket generarTicket(){
+        Ticket t = new Ticket(this.cinta.getLista());
         return t;
     }
     public int getIdentificador() {
