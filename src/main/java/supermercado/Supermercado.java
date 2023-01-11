@@ -10,4 +10,7 @@ package supermercado;
  */
 public class Supermercado {
     
+    public Ticket generarTicket(Caja c){
+        
+    }
 }
