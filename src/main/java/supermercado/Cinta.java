@@ -14,14 +14,19 @@ public class Cinta {
 
     private ArrayList<Productos> lista;
 
-    public Cinta() {
-        this.lista = new ArrayList<>();
+    public Cinta(ArrayList<Productos> productos) {
+        this.lista = productos;
     }
 
+    public Cinta() {
+        this.lista = new ArrayList<Productos>();
+    }
+    //método para añadir productos
     public void anadirProductos(Productos p) {
         this.lista.add(p);
     }
-
+    //métodp para borrar productos en primer lugar lo hice una forma que daba 
+    //bien luego encontre una forma mas fácil
     public void borrarProductos(Productos p) {
         if (this.lista.contains(p)) {
             this.lista.remove(p);

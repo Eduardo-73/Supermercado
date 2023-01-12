@@ -5,6 +5,7 @@
 package supermercado;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
@@ -13,53 +14,96 @@ import java.util.ArrayList;
  * @author eduar
  */
 public class Ticket {
-
+    
     private LocalTime hora;
-    private LocalDate fechaInicio;
+    private LocalDate fecha;
     private ArrayList<Productos> listaProductos;
-
+    
     public Ticket(ArrayList<Productos> listaProductos) {
-        this.hora = hora;
-        this.fechaInicio = fechaInicio;
+        this.hora = LocalTime.now();
+        this.fecha = LocalDate.now();
         this.listaProductos = listaProductos;
     }
-
+    
     public ArrayList<Productos> getListaProductos() {
         return listaProductos;
     }
 
-    public void setListaProductos(ArrayList<Productos> listaProductos) {
-        this.listaProductos = listaProductos;
-    }
-
-    public LocalTime getFecha() {
+    public LocalTime getHora() {
         return hora;
     }
 
-    public void setFecha(LocalTime fecha) {
-        this.hora = fecha;
-    }
-
-    public LocalDate getFechaInicio() {
-        return fechaInicio;
-    }
-
-    public void setFechaInicio(LocalDate fechaInicio) {
-        this.fechaInicio = fechaInicio;
+    public LocalDate getFecha() {
+        return fecha;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Ticket{");
-        sb.append("fecha=").append(hora);
-        sb.append(", fechaInicio=").append(fechaInicio);
-        sb.append(", listaProductos=").append(listaProductos);
-        sb.append('}');
-        return sb.toString();
+        return "-------------------------------------------------------------------------------------\n"
+                + "                            Supermercados Mercadona\n"
+                + "Fecha:\t" + fecha + "Hora: " + hora + "\n"
+                + "-------------------------------------------------------------------------------------" +
+                "\nProducto     Precio     Cantidad      IVA      Precio sin IVA\n"
+                + "--------------------------------------------------------------------------------------\n"
+                + mostrarProductos() 
+                + "-------------------------------------------------------------------------------------\n" +
+                listaPorcentajes();
     }
-
+   //recorro la lista del array de los productos, le sumo uno para que lea todos
+   //de uno en uno y con el método listaProductos los muestro por consola
+    public String mostrarProductos(){
+        String txt = "";
+        for (int i = 0; i <this.listaProductos.size(); i++) {
+            txt += listaProductos(this.listaProductos.get(i))+ "\n";
+        }
+        return txt;
+    }
     
-    
-    
+    public String listaProductos(Productos p){
+        String txt = p.nombre() + " " + p.precio() + " " + p.cantidad() + " " + 
+                p.iva() + " " + (p.precio()*p.cantidad()); 
+        return txt;
+    }
+    //Hago un contador para cada porcentaje que suma uno da la suma total y la 
+    //la suma con y sin IVA
+    public String listaPorcentajes(){
+        int contadorIvaProdu4 = 0;
+        int contadorIvaProdu10 = 0;
+        int contadorIvaProdu21 = 0;
+        double precioSinIva4 = 0;
+        double precioSinIva10 = 0;
+        double precioSinIva21 = 0;
+        double precioConIva4 = 0;
+        double precioConIva10 = 0;
+        double precioConIva21 = 0;
+        
+        for (int i = 0; i < listaProductos.size(); i++) {
+            Productos get = listaProductos.get(i);
+            if(listaProductos.get(i).iva().equals(IVAProductos.CUATRO)){
+                ++contadorIvaProdu4;
+                precioSinIva4 += listaProductos.get(i).cantidad() * listaProductos.get(i).precio();
+                precioConIva4 += listaProductos.get(i).cantidad() * (listaProductos.get(i).precio() * 1.04);
+            }else if(listaProductos.get(i).iva().equals(IVAProductos.DIEZ)){
+                ++contadorIvaProdu10;
+                precioSinIva10 += listaProductos.get(i).cantidad() * listaProductos.get(i).precio();
+                precioConIva10 += listaProductos.get(i).cantidad() * (listaProductos.get(i).precio() * 1.10);
+            }else{
+                ++contadorIvaProdu21;
+                precioSinIva21 += listaProductos.get(i).cantidad() * listaProductos.get(i).precio();
+                precioConIva21 += listaProductos.get(i).cantidad() * (listaProductos.get(i).precio() * 1.21);
+            }
+        }
+        
+        String txt = """
+                     Nº prod. iva 4%%:  %d    Precio sin IVA: %.2f       Precio con IVA: %.2f
+                     Nº prod. iva 10%%: %d    Precio sin IVA: %.2f       Precio con IVA: %.2f
+                     Nº prod. iva 21%%: %d    Precio sin IVA: %.2f       Precio con IVA: %.2f
+                     ------------------------------------------------------------------------------------
+                     Total a pagar: %.2f   --  Gracias por su visita
+                     ------------------------------------------------------------------------------------
+                     """.formatted(contadorIvaProdu4 , precioSinIva4, precioConIva4,
+                             contadorIvaProdu10, precioSinIva10, precioConIva10,
+                             contadorIvaProdu21, precioSinIva21, precioConIva21,(precioConIva4+precioConIva10+precioConIva21));
+        return txt;
+    }
 }

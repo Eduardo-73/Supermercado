@@ -12,17 +12,21 @@ import java.util.ArrayList;
  */
 public class Caja {
 
-    private final int identificador;
+    private int identificador;
     private Cinta cinta;
+    private static int id = 0;
 
-    public Caja(int identificador) {
-        this.identificador = identificador;
+    public Caja() {
+        this.identificador = ++id;
+        this.cinta = new Cinta();
     }
-
-    public Ticket generarTicket(){
+    //El unico metodo de esta clase era generar un ticket en el que creo un 
+    //objeto Ticket pasandole la lista de la cinta y devuelvo el ticket creado
+    public Ticket generarTicket() {
         Ticket t = new Ticket(this.cinta.getLista());
         return t;
     }
+
     public int getIdentificador() {
         return identificador;
     }
@@ -30,5 +34,6 @@ public class Caja {
     public Cinta getCinta() {
         return cinta;
     }
+
 
 }

@@ -8,6 +8,7 @@ package supermercado;
  *
  * @author eduardo
  */
+//Clase record
 public record Productos(String nombre, int cantidad, double precio, IVAProductos iva) {
 
 }
